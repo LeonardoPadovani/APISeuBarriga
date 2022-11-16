@@ -1,11 +1,14 @@
 package factories;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Supplier;
 import pojos.Usuario;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UsuarioDataFactory {
 
@@ -22,5 +25,36 @@ public class UsuarioDataFactory {
         return usuarioSemSenha;
     }
 
+    private static final Supplier<Usuario> criarUsuarioValidoMap = () -> {
+        Usuario usuarioValido = null;
+        try {
+            usuarioValido = criarUsuarioValido();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+       return usuarioValido;
+
+    };
+    private static final Supplier<Usuario> criarUsuarioSemSenhaMap = () -> {
+        Usuario usuarioSemSenha = null;
+        try {
+            usuarioSemSenha = criarUsuarioValido();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        usuarioSemSenha.setSenha("");
+        return usuarioSemSenha;
+
+    };
+
+    private static final Map<String, Supplier<Usuario>> MAP = new HashMap<>();
+
+    static {
+        MAP.put("criar Usuario Sem Senha Map",criarUsuarioSemSenhaMap);
+        MAP.put("criar Usuario Valido Map",criarUsuarioValidoMap);
+    }
+    public static Usuario getUsuario(String usuario){
+        return MAP.get(usuario).get();
+    }
 
 }

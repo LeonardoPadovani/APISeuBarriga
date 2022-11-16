@@ -19,7 +19,7 @@ public class Logar extends BaseRoutes{
         this.setUp();
         String teste =
             given()
-                .body(UsuarioDataFactory.criarUsuarioValido())
+                .body(UsuarioDataFactory.getUsuario("criar Usuario Valido Map"))
             .when()
                 .post("/signin")
             .then()
@@ -34,8 +34,8 @@ public class Logar extends BaseRoutes{
     @Test
     public void postLogarSemSenha() throws IOException {
         this.setUp();
-            given()
-                .body(UsuarioDataFactory.criarUsuarioSemSenha())
+             given()
+                .body(UsuarioDataFactory.getUsuario("criar Usuario Sem Senha Map"))
             .when()
                 .post("/signin")
             .then()

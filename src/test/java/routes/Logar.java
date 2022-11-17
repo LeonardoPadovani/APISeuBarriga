@@ -14,28 +14,10 @@ import static io.restassured.module.jsv.JsonSchemaValidator.*;
 
 public class Logar extends BaseRoutes{
 
-    @Test
-    public void postLogar() throws IOException {
-        this.setUp();
-        String teste =
-            given()
-                .body(UsuarioDataFactory.getUsuario("criar Usuario Valido Map"))
-            .when()
-                .post("/signin")
-            .then()
-                .log()
-                    .all()
-                .extract()
-                    .body().asString();
-
-        System.out.println(teste);
-    }
-
-    @Test
-    public void postLogarSemSenha() throws IOException {
+    public void postLogar(String payload) throws IOException {
         this.setUp();
              given()
-                .body(UsuarioDataFactory.getUsuario("criar Usuario Sem Senha Map"))
+                .body(UsuarioDataFactory.getUsuario(payload))
             .when()
                 .post("/signin")
             .then()

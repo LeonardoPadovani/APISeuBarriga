@@ -1,31 +1,30 @@
 package routes;
 
 import config.Configuracoes;
-import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 import org.aeonbits.owner.ConfigFactory;
-import org.junit.Before;
 
-import static io.restassured.RestAssured.*;
-import static io.restassured.matcher.RestAssuredMatchers.*;
-import static org.hamcrest.Matchers.*;
-import static io.restassured.module.jsv.JsonSchemaValidator.*;
 
 public class BaseRoutes {
 
-
-    public void setUp(){
+    public static RequestSpecification getRequestSpec() {
         Configuracoes configuracoes = ConfigFactory.create(Configuracoes.class);
-        baseURI = configuracoes.baseURI();
-        //basePath = configuracoes.basePath();
+        return new RequestSpecBuilder()
+                .setBaseUri(configuracoes.baseURI())
+                .setContentType(ContentType.JSON)
+                .log(LogDetail.ALL)
+                .build();
+    }
 
-        RequestSpecBuilder requestSpecBuilder = new RequestSpecBuilder();
-        requestSpecBuilder.setContentType(ContentType.JSON);
-        requestSpecification = requestSpecBuilder.build();
-        enableLoggingOfRequestAndResponseIfValidationFails();
-
-
+    public static ResponseSpecification getResponseSpec() {
+        return new ResponseSpecBuilder()
+                .log(LogDetail.ALL)
+                .build();
     }
 
 

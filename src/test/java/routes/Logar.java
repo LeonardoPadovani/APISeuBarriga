@@ -12,6 +12,7 @@ import org.junit.Test;
 import pojos.Usuario;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
 
 import static io.restassured.RestAssured.*;
 import static io.restassured.matcher.RestAssuredMatchers.*;
@@ -24,15 +25,14 @@ Response response;
 
 
     public Response postLogar(String payload) throws IOException {
-
-            this.response = given(getRequestSpec())
+          this.response = given(getRequestSpec())
                 .body(UsuarioDataFactory.getUsuario(payload))
             .when()
                 .post("/signin")
             .then().spec(getResponseSpec())
                 .extract()
                 .response();
-            return this.response;
+          return this.response;
     }
 
     public void validarStatusCode(int statusCodeEsperado){
@@ -40,8 +40,9 @@ Response response;
     }
 
     public void validarBodyResponse(String payload){
-       //Usuario requestUsuario = UsuarioDataFactory.getUsuario(payload);
-       //assertThat(this.response.as(Usuario.class).,equalTo(statusCodeEsperado));
+       Usuario requestUsuario = UsuarioDataFactory.getUsuario(payload);
+       Usuario responseUsuario = this.response.as(Usuario.class);
+       assertThat(responseUsuario.getNome(),equalTo(requestUsuario.getNome()));
 
     }
 

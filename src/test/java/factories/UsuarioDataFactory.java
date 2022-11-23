@@ -50,8 +50,8 @@ public class UsuarioDataFactory {
     private static final Map<String, Supplier<Usuario>> MAP = new HashMap<>();
 
     static {
-        MAP.put("criar Usuario Sem Senha Map",criarUsuarioSemSenhaMap);
-        MAP.put("criar Usuario Valido Map",criarUsuarioValidoMap);
+        MAP.put("usuario sem senha",criarUsuarioSemSenhaMap);
+        MAP.put("usuario valido",criarUsuarioValidoMap);
     }
     public static Usuario getUsuario(String usuario){
         return MAP.get(usuario).get();

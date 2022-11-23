@@ -1,6 +1,7 @@
 package steps;
 
 import io.cucumber.java.pt.Dado;
+import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
 import routes.Logar;
 
@@ -18,4 +19,10 @@ public class logarSteps {
     public void verifico_o_status_code(Integer code) {
         logar.validarStatusCode(code);
     }
+
+    @Entao("verifico o body da resposta: {string}")
+    public void verifico_o_body_da_resposta(String payload) {
+        logar.validarBodyResponse(payload);
+    }
+
 }

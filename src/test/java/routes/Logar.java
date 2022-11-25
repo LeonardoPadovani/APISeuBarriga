@@ -24,6 +24,12 @@ Response response;
           return this.response;
     }
 
+    public String getToken(String payload) throws IOException {
+        this.response = this.postLogar(payload);
+        Usuario responseUsuario = this.response.as(Usuario.class);
+        return responseUsuario.getToken();
+    }
+
     public void validarStatusCode(int statusCodeEsperado){
         assertThat(this.response.getStatusCode(),equalTo(statusCodeEsperado));
     }

@@ -21,7 +21,7 @@ public class logarSteps {
     }
 
     @Entao("verifico o body da resposta: {string}")
-    public void verifico_o_body_da_resposta(String payload) {
+    public void verifico_o_body_da_resposta(String payload) throws IOException {
         logar.validarBodyResponse(payload);
     }
 

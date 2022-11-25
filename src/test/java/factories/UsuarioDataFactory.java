@@ -49,21 +49,21 @@ public class UsuarioDataFactory {
         Usuario usuarioSemSenha = null;
         try {
             usuarioSemSenha = criarUsuarioValido();
+            usuarioSemSenha.setEmail("");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        usuarioSemSenha.setEmail("");
-        return usuarioSemSenha;
+       return usuarioSemSenha;
 
     };
     private static final Supplier<Usuario> criarUsuarioSemSenha = () -> {
         Usuario usuarioSemSenha = null;
         try {
             usuarioSemSenha = criarUsuarioValido();
+            usuarioSemSenha.setSenha("");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        usuarioSemSenha.setSenha("");
         return usuarioSemSenha;
 
     };

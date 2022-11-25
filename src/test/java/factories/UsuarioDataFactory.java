@@ -19,23 +19,44 @@ public class UsuarioDataFactory {
         return usuario;
     }
 
-    public static Usuario criarUsuarioSemSenha() throws IOException {
-        Usuario usuarioSemSenha = criarUsuarioValido();
-        usuarioSemSenha.setSenha("");
-        return usuarioSemSenha;
-    }
-
-    private static final Supplier<Usuario> criarUsuarioValidoMap = () -> {
+   private static final Supplier<Usuario> criarUsuarioValidoUm = () -> {
         Usuario usuarioValido = null;
         try {
             usuarioValido = criarUsuarioValido();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-       return usuarioValido;
+        return usuarioValido;
 
     };
-    private static final Supplier<Usuario> criarUsuarioSemSenhaMap = () -> {
+
+    private static final Supplier<Usuario> criarUsuarioValidoDois= () -> {
+        Usuario usuarioValido = null;
+        try {
+            usuarioValido = criarUsuarioValido();
+            usuarioValido.setNome("Lauro Souza");
+            usuarioValido.setEmail("lauro.souza@teste.com.br");
+            usuarioValido.setSenha("teste");
+            usuarioValido.setId(35110);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return usuarioValido;
+
+    };
+
+    private static final Supplier<Usuario> criarUsuarioSemEmail = () -> {
+        Usuario usuarioSemSenha = null;
+        try {
+            usuarioSemSenha = criarUsuarioValido();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        usuarioSemSenha.setEmail("");
+        return usuarioSemSenha;
+
+    };
+    private static final Supplier<Usuario> criarUsuarioSemSenha = () -> {
         Usuario usuarioSemSenha = null;
         try {
             usuarioSemSenha = criarUsuarioValido();
@@ -50,8 +71,11 @@ public class UsuarioDataFactory {
     private static final Map<String, Supplier<Usuario>> MAP = new HashMap<>();
 
     static {
-        MAP.put("usuario sem senha",criarUsuarioSemSenhaMap);
-        MAP.put("usuario valido",criarUsuarioValidoMap);
+        MAP.put("usuario valido um",criarUsuarioValidoUm);
+        MAP.put("usuario valido dois",criarUsuarioValidoDois);
+        MAP.put("usuario sem email",criarUsuarioSemEmail);
+        MAP.put("usuario sem senha",criarUsuarioSemSenha);
+
     }
     public static Usuario getUsuario(String usuario){
         return MAP.get(usuario).get();

@@ -2,23 +2,12 @@ package routes;
 
 import factories.UsuarioDataFactory;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.ResponseSpecification;
-import org.hamcrest.Matchers;
-import org.junit.Assert;
-
-import org.junit.Assert;
-import org.junit.Test;
 import pojos.Usuario;
-
 import java.io.IOException;
-import java.sql.SQLOutput;
-
 import static io.restassured.RestAssured.*;
-import static io.restassured.matcher.RestAssuredMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static io.restassured.module.jsv.JsonSchemaValidator.*;
+
 
 public class Logar extends BaseRoutes{
 Response response;
@@ -43,7 +32,8 @@ Response response;
        Usuario requestUsuario = UsuarioDataFactory.getUsuario(payload);
        Usuario responseUsuario = this.response.as(Usuario.class);
        assertThat(responseUsuario.getNome(),equalTo(requestUsuario.getNome()));
-
+       assertThat(responseUsuario.getId(),equalTo(requestUsuario.getId()));
+       assertThat(responseUsuario.getToken(),hasLength(97));
     }
 
 

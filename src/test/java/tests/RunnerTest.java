@@ -2,7 +2,10 @@ package tests;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
 import org.junit.runner.RunWith;
+
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
@@ -13,7 +16,7 @@ import org.junit.runner.RunWith;
         monochrome = true,
         dryRun = false)
 
-public class Runner {
+public class RunnerTest {
 
 
 }
